@@ -17,7 +17,7 @@ const ConnectButton = ({ onClick, children }: Props) => {
       <Button
         width={300}
         onClick={onClick}
-        bg="blue.800"
+        bg="blue.300"
         color="blue.300"
         fontSize="lg"
         fontWeight="medium"
