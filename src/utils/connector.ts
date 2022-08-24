@@ -2,6 +2,7 @@ import { InjectedConnector } from "@web3-react/injected-connector";
 import { WalletLinkConnector } from "@web3-react/walletlink-connector";
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { BscConnector } from '@binance-chain/bsc-connector'
+import { BitKeepConnector } from "./bitkeep-connector"
 
 export const Injected = new InjectedConnector({
   supportedChainIds: [1, 3, 4, 5, 42],
@@ -23,6 +24,6 @@ export const BinanceWallet = new BscConnector({
   supportedChainIds: [56, 97] // later on 1 ethereum mainnet and 3 ethereum ropsten will be supported
 })
 
-export const BitKeepConnect = new InjectedConnector({
+export const BitKeep = new BitKeepConnector({
   supportedChainIds: [1, 3, 4, 5, 42],
 });

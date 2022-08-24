@@ -3,7 +3,7 @@ import { useWeb3React } from "@web3-react/core";
 import "@fontsource/inter";
 import {
   BinanceWallet,
-  BitKeepConnect,
+  BitKeep,
   CoinbaseWallet,
   Injected,
   WalletConnect,
@@ -17,15 +17,15 @@ const ConnectButton = ({ onClick, children }: Props) => {
       <Button
         width={300}
         onClick={onClick}
-        bg="blue.300"
-        color="blue.300"
+        bg="#24a0ed"
+        color="white"
         fontSize="lg"
         fontWeight="medium"
         borderRadius="xl"
         border="1px solid transparent"
         _hover={{
           borderColor: "blue.700",
-          color: "blue.400",
+          color: "white",
         }}
         _active={{
           backgroundColor: "blue.800",
@@ -43,6 +43,8 @@ const ConnectButton = ({ onClick, children }: Props) => {
 function App() {
   const { active, activate, deactivate, library, chainId, account } =
     useWeb3React();
+
+  // const isBitKeepInstalled = window.isBitKeep && window.bitkeep.ethereum;
   return (
     <Layout>
       <ConnectButton
@@ -68,7 +70,7 @@ function App() {
       </ConnectButton>
       <ConnectButton
         onClick={() => {
-          activate(BitKeepConnect);
+          activate(BitKeep);
         }}
       >
         BitKeep
