@@ -1,3 +1,4 @@
+import { Web3ReactProvider, useWeb3React } from "@web3-react/core";
 import { Button, Box, Text } from "@chakra-ui/react";
 import { useEthers, useEtherBalance } from "@usedapp/core";
 import { formatEther } from "@ethersproject/units";
@@ -7,7 +8,7 @@ type Props = {
   handleOpenModal: any;
 };
 
-export default function ConnectButton({ handleOpenModal }: Props) {
+export default function InjectedButton() {
   const { activateBrowserWallet, account } = useEthers();
   const etherBalance = useEtherBalance(account);
 
@@ -30,7 +31,6 @@ export default function ConnectButton({ handleOpenModal }: Props) {
         </Text>
       </Box>
       <Button
-        onClick={handleOpenModal}
         bg="gray.800"
         border="1px solid transparent"
         _hover={{
@@ -73,7 +73,7 @@ export default function ConnectButton({ handleOpenModal }: Props) {
       }}
       my="2"
     >
-      Connect to Metamask
+      Connect to BitKeep
     </Button>
   );
 }
