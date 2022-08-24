@@ -1,29 +1,92 @@
-import { Web3ReactProvider, useWeb3React } from "@web3-react/core";
-import { ChakraProvider, useDisclosure } from "@chakra-ui/react";
-import theme from "./theme";
-import Layout from "./components/Layout";
-import ConnectButton from "./components/ConnectButton";
-import AccountModal from "./components/AccountModal";
+import { Button, Box, Text } from "@chakra-ui/react";
+import { useWeb3React } from "@web3-react/core";
 import "@fontsource/inter";
-import { CoinbaseWallet, Injected } from "./utils/connector";
-import CoinbaseButton from "./components/CoinbaseButton";
-import WalletConnectButton from "./components/WalletConnectButton";
-import InjectedButton from "./components/InjectedButton";
+import {
+  BinanceWallet,
+  BitKeepConnect,
+  CoinbaseWallet,
+  Injected,
+  WalletConnect,
+} from "./utils/connector";
+import Layout from "./components/Layout";
+import { Props } from "framer-motion/types/types";
+
+const ConnectButton = ({ onClick, children }: Props) => {
+  return (
+    <>
+      <Button
+        width={300}
+        onClick={onClick}
+        bg="blue.800"
+        color="blue.300"
+        fontSize="lg"
+        fontWeight="medium"
+        borderRadius="xl"
+        border="1px solid transparent"
+        _hover={{
+          borderColor: "blue.700",
+          color: "blue.400",
+        }}
+        _active={{
+          backgroundColor: "blue.800",
+          borderColor: "blue.700",
+        }}
+        my="10"
+        py="10"
+      >
+        {children}
+      </Button>
+    </>
+  );
+};
 
 function App() {
-  const { active, activate, library, chainId, account } = useWeb3React();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-   return (
-    <ChakraProvider theme={theme}>
-      <Layout>
-        <ConnectButton handleOpenModal={onOpen} />
-        <CoinbaseButton />
-        <WalletConnectButton />
-        <InjectedButton />
-        {/* <button onClick={() => { activate(WalletConnect) }} /> */}
-        <AccountModal isOpen={isOpen} onClose={onClose} />
-      </Layout>
-    </ChakraProvider>
+  const { active, activate, deactivate, library, chainId, account } =
+    useWeb3React();
+  return (
+    <Layout>
+      <ConnectButton
+        onClick={() => {
+          activate(CoinbaseWallet);
+        }}
+      >
+        Coinbase Wallet
+      </ConnectButton>
+      <ConnectButton
+        onClick={() => {
+          activate(WalletConnect);
+        }}
+      >
+        Wallet Connect
+      </ConnectButton>
+      <ConnectButton
+        onClick={() => {
+          activate(Injected);
+        }}
+      >
+        Metamask
+      </ConnectButton>
+      <ConnectButton
+        onClick={() => {
+          activate(BitKeepConnect);
+        }}
+      >
+        BitKeep
+      </ConnectButton>
+      <ConnectButton
+        onClick={() => {
+          activate(BinanceWallet);
+        }}
+      >
+        Binance Wallet
+      </ConnectButton>
+
+      <ConnectButton onClick={deactivate}>Disconnect</ConnectButton>
+
+      <div>Connection Status: {active}</div>
+      <div>Account: {account}</div>
+      <div>Network ID: {chainId}</div>
+    </Layout>
   );
 
   // return (

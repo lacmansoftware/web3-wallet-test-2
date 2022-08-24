@@ -3,18 +3,17 @@ import { Button, Box, Text } from "@chakra-ui/react";
 import { useEthers, useEtherBalance } from "@usedapp/core";
 import { formatEther } from "@ethersproject/units";
 import Identicon from "./Identicon";
+import { BinanceWallet, CoinbaseWallet } from "../utils/connector";
 
 type Props = {
   handleOpenModal: any;
 };
 
-export default function InjectedButton() {
-  const { activateBrowserWallet, account } = useEthers();
-  const etherBalance = useEtherBalance(account);
+export default function BinanceWalletButton() {
+  const { active, activate, library, chainId, account } = useWeb3React();
 
-  function handleConnectWallet() {
-    activateBrowserWallet();
-  }
+  console.log(active, activate, library, chainId, account);
+  
 
   return account ? (
     <Box
@@ -25,11 +24,6 @@ export default function InjectedButton() {
       py="0"
       my="2"
     >
-      <Box px="3">
-        <Text color="white" fontSize="md">
-          {etherBalance && parseFloat(formatEther(etherBalance)).toFixed(3)} ETH
-        </Text>
-      </Box>
       <Button
         bg="gray.800"
         border="1px solid transparent"
@@ -56,7 +50,9 @@ export default function InjectedButton() {
     </Box>
   ) : (
     <Button
-      onClick={handleConnectWallet}
+      onClick={() => {
+        activate(BinanceWallet);
+      }}
       bg="blue.800"
       color="blue.300"
       fontSize="lg"
@@ -73,7 +69,7 @@ export default function InjectedButton() {
       }}
       my="2"
     >
-      Connect to BitKeep
+      Connect to BinanceWallet
     </Button>
   );
 }
